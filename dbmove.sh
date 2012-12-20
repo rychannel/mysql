@@ -22,7 +22,10 @@ movefrom=$3
 moveto=$4
 
 
-dbs=`mysql -h titan.uni.edu -u$1 -p$2 -Bse 'show databases' | grep dev`
+dbs=`mysql -h $3 -u$1 -p$2 -Bse 'show databases' | grep dev`
 
-echo $dbs
-
+for i in $dbs
+do
+    mysql -h $4 -u$1 -p$2 -Bse 'create database $i'
+    echo "$i added to $4"
+done
